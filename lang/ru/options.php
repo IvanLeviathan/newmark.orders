@@ -19,7 +19,7 @@ $MESS['OPTIONS_TAB_ACTION_DELETE'] = 'Удалить заказ';
 $MESS['OPTIONS_TAB_ACTION_CANCEL_CHANGE'] = 'Отменить и изменить статус заказа';
 $MESS['OPTIONS_TAB_STATUS'] = 'Новый статус';
 $MESS['OPTIONS_TAB_COMMENT'] = 'Комментарий к отмене заказа';
-
+$MESS['OPTIONS_TAB_UNDO_RESERVATION'] = 'Снимать товары с резервов<br/>(работает только с включенным резервированием товаров в настройках торогового каталога)';
 
 
 

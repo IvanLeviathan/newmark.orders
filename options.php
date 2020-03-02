@@ -32,6 +32,7 @@ while($status=$statusResult->fetch()){
 }
 
 
+
 $aTabs = array(
     array(
         "DIV" 	  => "edit1",
@@ -87,7 +88,12 @@ $aTabs = array(
 					$statusesSelect,
 				),
             ),
-
+			array(
+                "undo_reservation",
+                Loc::getMessage("OPTIONS_TAB_UNDO_RESERVATION"),
+                "N",
+                array("checkbox")
+            ),
         )
     )
 );

@@ -26,6 +26,8 @@ class Main{
 			"action"         => Option::get(self::getModuleId(), 'action', "cancel"),
 			"change_status" => Option::get(self::getModuleId(), 'change_status', ""),
             "cancel_comment"         => Option::get(self::getModuleId(), 'cancel_comment', ""),
+			"undo_reservation" => Option::get(self::getModuleId(), 'undo_reservation', "N"),
+			"reservation_enabled" => Option::get('catalog', 'enable_reservation') == 'Y'
         );
         self::$allOptions = $optionsArr;
         return $optionsArr;
@@ -73,6 +75,28 @@ class Main{
                         \CSaleOrder::Delete($ar_sales['ID']);
                         break;
                 }
+				if($options['undo_reservation'] && $options['reservation_enabled']){
+					// reserve undo to products
+					$dbBasketItems = \CSaleBasket::GetList(
+						array(
+							"NAME" => "ASC",
+							"ID" => "ASC"
+						),
+						array(
+							"ORDER_ID" => $ar_sales['ID']
+						)
+					);
+
+					while ($arItems = $dbBasketItems->Fetch()){
+						$reserveParams = array(
+							"PRODUCT_ID" => $arItems['PRODUCT_ID'],
+							"QUANTITY_ADD" => $arItems['QUANTITY'],
+							"UNDO_RESERVATION" => "Y"
+						);
+						$res = \CCatalogProductProvider::ReserveProduct($reserveParams);
+					}
+				}
+
 
             }else{
                 continue;
